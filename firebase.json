@@ -39,8 +39,6 @@
     },
     "singleProjectMode": true
   },
-  "remoteconfig": {
-    "template": "firebase/remoteconfig.template.json"
-  },
+  "remoteconfig": {},
   "extensions": {}
 }
