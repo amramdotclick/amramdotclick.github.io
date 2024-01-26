@@ -21,7 +21,7 @@
     transform: translate(-70%, -50%);
     width: 50%;
     height: 70%;
-    padding: 50px 30px;
+    padding: 30px 30px;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 7px 7px rgba(0, 0, 0, 0.2);
@@ -51,7 +51,41 @@
     margin-bottom: 10px;
     list-style-type: none;
   }
-</style></head>
+
+  @media (max-width: 768px) {
+    .right-container {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translate(-50%, -80%);
+      width: 80%;
+      height: 37.5%;
+      padding: 30px 30px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 7px 7px rgba(0, 0, 0, 0.2);
+      word-wrap: break-word;
+      overflow: auto;
+    }
+    
+    .left-container {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translate(-50%, -15%);
+      width: 80%;
+      height: 35%;
+      padding: 30px 30px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 7px 7px rgba(0, 0, 0, 0.2);
+      word-wrap: break-word;
+      overflow: auto;
+    }
+  }
+
+</style>
+</head>
 
 
 
