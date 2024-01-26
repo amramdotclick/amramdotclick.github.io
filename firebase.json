@@ -4,7 +4,7 @@
     "indexes": "firebase/firestore.indexes.json"
   },
   "hosting": {
-    "public": "public",
+    "public": "",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -24,18 +24,9 @@
     "firestore": {
       "port": 5000
     },
-    "hosting": {
-      "port": 6000
-    },
-    "pubsub": {
-      "port": 7000
-    },
-    "storage": {
-      "port": 8000
-    },
     "ui": {
       "enabled": true,
-      "port": 9000
+      "port": 6000
     },
     "singleProjectMode": true
   },
