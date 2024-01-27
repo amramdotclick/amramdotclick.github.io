@@ -5,25 +5,13 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 //import { getFirestore } from "firebase/firestore";
 import { getRemoteConfig } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-remote-config.js";
-import * as fire from "./firebase_setup.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAN8iGMfpIZEnS5mxrW5uRfMqWXpeAuSSc",
-  authDomain: "amramdotclick.firebaseapp.com",
-  projectId: "amramdotclick",
-  storageBucket: "amramdotclick.appspot.com",
-  messagingSenderId: "667774176347",
-  appId: "1:667774176347:web:9cffa4f075c9dd8f19c37e",
-  measurementId: "G-8H5T23DG00"
-};
 
-firebase.initializeApp(firebaseConfig);
-
-const auth = getAuth();
+const auth = firebase.auth();
 const user = auth.currentUser;
 
 if (user !== null) {
   document.getElementById("name").innerHTML = userId.displayName;
 } else {
-  document.getElementById("name").innerHTML = "Not logged in";
+  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>Not logged in </h3> <button class='loginbtn' style='display:inline;' onclick='window.location.href=\"/login.html\"'>Login</button></span>";
 }

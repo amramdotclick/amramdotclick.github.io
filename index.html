@@ -11,8 +11,7 @@
   <div class="left-container">
     <h1>Amram</h1>
     <hr>
-    <h3 id="name"></h3><br>
-    <button class="loginbtn">Log in</button>
+    <div id="name"></div><br>
     <h3><span style="color:rgb(255, 102, 0)">Streak: 6</span></h3><br>
     <p>Example Menu</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
@@ -29,7 +28,7 @@
       <li class="med">Item 3</li>
     </ul>
   </div>
-
+</body>
 
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js" type="module"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase.js" type="module"></script>
@@ -39,9 +38,22 @@
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-remote-config.js" type="module"></script>  
   <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
 
+  <script type="module">
+    const firebaseConfig = {
+      apiKey: "AIzaSyAN8iGMfpIZEnS5mxrW5uRfMqWXpeAuSSc",
+      authDomain: "amramdotclick.firebaseapp.com",
+      projectId: "amramdotclick",
+      storageBucket: "amramdotclick.appspot.com",
+      messagingSenderId: "667774176347",
+      appId: "1:667774176347:web:9cffa4f075c9dd8f19c37e",
+      measurementId: "G-8H5T23DG00"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <script type="module" src="firebase_setup.js"></script>
 
   <script type="module" src="script.js"></script>
 
-</body>
 </html>

@@ -21,10 +21,10 @@ body {
 .right-container {
   position: absolute;
   top: 50%;
-  left: 70%;
-  transform: translate(-70%, -50%);
+  left: 75%;
+  transform: translate(-72%, -50%);
   width: 50%;
-  height: 70%;
+  height: 80%;
   padding: 30px 30px;
   background-color: #fff;
   border-radius: 15px;
@@ -36,10 +36,10 @@ body {
 .left-container {
   position: absolute;
   top: 50%;
-  left: 20%;
-  transform: translate(-25%, -50%);
-  width: 17.5%;
-  height: 70%;
+  left: 18%;
+  transform: translate(-22%, -50%);
+  width: 25%;
+  height: 80%;
   padding: 30px 30px;
   background-color: #fff;
   border-radius: 15px;
@@ -54,6 +54,22 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   list-style-type: none;
+}
+
+
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  padding: 30px 30px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 7px 7px rgba(0, 0, 0, 0.2);
+  word-wrap: break-word;
+  overflow: auto;
 }
 
 @media (max-width: 768px) {
