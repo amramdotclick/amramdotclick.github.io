@@ -42,59 +42,31 @@
       window.db = db;
       window.userData = userData;
       window.userEmail = userEmail;
-    </script>
 
-<script>
-  async function addMed() {
-    if (document.getElementById("name") == "" || document.getElementById("quantity") == "" || document.getElementById("unit") == "" || !(document.getElementById("breakfast").checked || document.getElementById("lunch").checked || document.getElementById("dinner").checked || document.getElementById("night").checked)) {
-      document.getElementById("error").innerHTML = "Please fill in all fields"
-    } else {
-    const userSnap = await fs.collection(db, userEmail);
-    if (userSnap.empty) {
-      fs.setDoc(fs.doc(db, userEmail, "med-1"), {
-        name: document.getElementById("medname").value,
-        quantity: document.getElementById("amt").value,
-        unit: document.getElementById("unit").value,
-        breakfast: document.getElementById("breakfast").checked,
-        lunch: document.getElementById("lunch").checked,
-        dinner: document.getElementById("dinner").checked,
-        night: document.getElementById("night").checked
-      });
-    } else {
-      for (let i = 1; i <= 32; i++) {
-        let doc = await fs.getDoc(fs.doc(db, userEmail, `med-${i}`));
-        let DATA = doc.data();
-        console.log(i);
-        console.log(DATA);
-        if (DATA == null) {
-          fs.setDoc(fs.doc(db, userEmail, `med-${i}`), {
-            name: document.getElementById("medname").value,
-            quantity: document.getElementById("amt").value,
-            unit: document.getElementById("unit").value,
-            breakfast: document.getElementById("breakfast").checked,
-            lunch: document.getElementById("lunch").checked,
-            dinner: document.getElementById("dinner").checked,
-            night: document.getElementById("night").checked
-          });
-        break;
-        } else {
-          if (i == 32) {
-            document.getElementById("error").innerHTML = "Medication limit reached! (32)";
-          }
-        }
+      const med = localStorage.getItem("med");
+      const id = localStorage.getItem("id");
+
+      let doc = await fs.getDoc(fs.doc(db, userEmail, `med-${id}`));
+      let DATA = doc.data();
+      console.log(id);
+      console.log(DATA);
+
+      var medi = [DATA.name, DATA.quantity, DATA.unit, DATA.breakfast, DATA.lunch, DATA.dinner, DATA.night];
+
+      window.onload = function() {
+        sessionStorage.setItem("med", med);
+        sessionStorage.setItem("id", id);
+        sessionStorage.setItem("DATA", DATA);
+        sessionStorage.setItem("medi", medi);
       }
-    }
-  }
-  }
-  console.log("complete")
-</script>
+    </script>
 
 
   </head>
 
   <body>
     <div class="login-container">
-      <h1 style="font-weight:300">Add new medication</h1><br>
+      <h1 style="font-weight:300" id="title">Editing medication:</h1><br>
       <h3 style="font-weight:400">Name</h3>
       <input id="medname" class="addfield" placeholder="Paracetamol"><br>
       <h3 style="font-weight:400">Amount</h3>
@@ -113,4 +85,35 @@
     </div>
   </body>
 
+  <script>
+    async function editValues() {
+      document.getElementById("medname").value = medi[0];
+      document.getElementById("amt").value = medi[1];
+      document.getElementById("unit").value = medi[2];
+      document.getElementById("breakfast").checked = medi[3];
+      document.getElementById("lunch").checked = medi[4];
+      document.getElementById("dinner").checked = medi[5];
+      document.getElementById("night").checked = medi[6];
+    }
+
+    console.log(med)
+    async function editMed() {
+      document.getElementById("title").innerText = `Editing medication: ${med}`;
+      if (DATA == null) {
+        fs.updateDoc(fs.doc(db, userEmail, `med-${id}`), {
+          name: document.getElementById("medname").value,
+          quantity: document.getElementById("amt").value,
+          unit: document.getElementById("unit").value,
+          breakfast: document.getElementById("breakfast").checked,
+          lunch: document.getElementById("lunch").checked,
+          dinner: document.getElementById("dinner").checked,
+          night: document.getElementById("night").checked
+        });
+      }
+    }
+  
+    editValues();
+    editMed();
+    console.log("complete")
+  </script>
 </html>
