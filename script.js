@@ -22,12 +22,19 @@ const auth = getAuth();
 const userEmail = localStorage.getItem("email");
 
 if (userEmail != null) {
-  document.getElementById("name").innerHTML = "<h3>"+userEmail+"</h3> <button class='loginbtn' style='display:inline;' onclick='window.location.href=\"/logout.html\"'>Logout</button>";
+  document.getElementById("name").innerHTML = "<h3>"+userEmail+"</h3> <button class='generalbtn' style='display:inline;' onclick='window.location.href=\"/logout.html\"'>Logout</button>";
 } else {
-  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>Not logged in </h3> <button class='loginbtn' style='display:inline;' onclick='window.location.href=\"/login.html\"'>Login</button></span>";
+  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>Not logged in </h3> <button class='generalbtn' style='display:inline;' onclick='window.location.href=\"/login.html\"'>Login</button></span>";
 }
 
 // Data
+
+let list = document.getElementById("list");
+
+if (userEmail == null) {
+  list.innerHTML = "<h1 style='font-weight:300'>You are not logged in.</h1><h3 style='font-weight:300'>Log in to see your medications</h3>"
+  document.getElementById("add").innerHTML = "";
+} else {
 
 const db = getFirestore();
 const userData = collection(db, userEmail);
@@ -67,12 +74,19 @@ for (let i = 1; i <= 32; i++) {
   }
 }
 
-let list = document.getElementById("list");
+list.innerHTML = "";
+
 for (let i = 1; i <= 32; i++) {
   if (med[i] != null) {
     let li = document.createElement("li");
     li.setAttribute("class", "med");
-    li.innerHTML = "<h1>"+med[i][0]+"</h1><h2>"+med[i][1]+" "+med[i][2]+"</h2><p>Information: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>"
+    li.innerHTML = "<h1 style='font-weight:600'>"+med[i][0]+"</h1><h2 style='font-weight:400'>"+med[i][1]+" "+med[i][2]+"</h2><p>For: "+medtime[i]+"</p>"
     list.appendChild(li);
   }
+}
+
+if (med.every(element => element === null)) {
+  list.innerHTML = "<h1 style='font-weight:300'>You have no medications.</h1><h3 style='font-weight:300'>Start keeping track of them by clicking the green button above!</h3>"
+}
+
 }
