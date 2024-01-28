@@ -10,12 +10,16 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-remote-config.js" type="module"></script>  
-    <script src="/script_add.js"></script>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
       import * as fs from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-    
+      //import { initializeApp } from "firebase/app";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+      //import { getFirestore } from "firebase/firestore";
+      import { getRemoteConfig } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-remote-config.js";
+
       const firebaseConfig = {
         apiKey: "AIzaSyAN8iGMfpIZEnS5mxrW5uRfMqWXpeAuSSc",
         authDomain: "amramdotclick.firebaseapp.com",
@@ -23,14 +27,25 @@
         storageBucket: "amramdotclick.appspot.com",
         messagingSenderId: "667774176347",
         appId: "1:667774176347:web:9cffa4f075c9dd8f19c37e",
-        measurementId: "G-8H5T23DG00"
+      measurementId: "G-8H5T23DG00"
       };
 
       const app = initializeApp(firebaseConfig);
-      const db = fs.getFirestore(app)
+
+      const auth = getAuth();
+      const userEmail = localStorage.getItem("email");
+
+      const db = fs.getFirestore();
+      const userSnap = await fs.getDoc(fs.doc(db, userEmail));
+      const userData = fs.collection(db, userEmail);
+
       window.fs = fs;
       window.db = db;
+      window.userData = userData;
+      window.userEmail = userEmail;
+      window.userSnap = userSnap;
     </script>
+
   </head>
 
   <body>
@@ -39,15 +54,56 @@
       <h3 style="font-weight:400">Name</h3>
       <input id="medname" class="addfield" placeholder="Paracetamol"><br>
       <h3 style="font-weight:400">Amount</h3>
-      <input id="amt" class="addfield" style="width:70%; display:inline" placeholder="500">
-      <input id="unit" class="addfield" style="width:28%; display:inline; margin-left:1.5%" placeholder="milligrams"><br>
+      <input id="amt" class="addfield" style="width:65%; display:inline" placeholder="500">
+      <input id="unit" class="addfield right" style="width:30%; display:inline; margin-right:30px" placeholder="milligrams"><br>
       <h3 style="font-weight:400; margin-bottom:10px">Time</h3>
       <h2 style="font-weight:400; font-size:24px; display:inline;">
-        <input type="checkbox" id="breakfast" class="addnomargin">&nbsp;Breakfast
-        <input type="checkbox" id="lunch" class="addcheck">&nbsp;Lunch
-        <input type="checkbox" id="dinner" class="addcheck">&nbsp;Dinner
-        <input type="checkbox" id="night" class="addcheck">&nbsp;Night
+        <div style="display:inline-block; margin-right: 15px;"><input type="checkbox" id="breakfast" class="addcheck"> Breakfast</div>
+        <div style="display:inline-block; margin-right: 15px;"><input type="checkbox" id="lunch" class="addcheck"> Lunch</div>
+        <div style="display:inline-block; margin-right: 15px;"><input type="checkbox" id="dinner" class="addcheck"> Dinner</div>
+        <div style="display:inline-block; margin-right: 15px;"><input type="checkbox" id="night" class="addcheck"> Night</div>
+      </h2><br><br>
+      <h2 style="font-weight:400;""><button class="generalbtn" style="width: 100%; background-color:forestGreen" onclick="addMed();">Add</button></h2><br>
+      <h3 style="font-weight:400; color:red" id="error"></h3><br>
     </div>
   </body>
+
+  <script>
+    function addMed() {
+      if (document.getElementById("name") == "" || document.getElementById("quantity") == "" || document.getElementById("unit") == "" || !(document.getElementById("breakfast").checked || document.getElementById("lunch").checked || document.getElementById("dinner").checked || document.getElementById("night").checked)) {
+        document.getElementById("error").innerHTML = "Please fill in all fields"
+      } else {
+      if (userSnap.empty) {
+        fs.addDoc(fs.collection(db, userEmail, "med-1"), {
+          name: document.getElementById("medname").value,
+          quantity: document.getElementById("amt").value,
+          unit: document.getElementById("unit").value,
+          breakfast: document.getElementById("breakfast").checked,
+          lunch: document.getElementById("lunch").checked,
+          dinner: document.getElementById("dinner").checked,
+          night: document.getElementById("night").checked
+        });
+      } else {
+        for (let i = 1; i <= 32; i++) {
+          if (fs.getDoc(fs.collection(db, userEmail, `med-${i}`)) == null) {
+            fs.addDoc(fs.collection(db, userEmail, `med-${i}`), {
+              name: document.getElementById("medname").value,
+              quantity: document.getElementById("amt").value,
+              unit: document.getElementById("unit").value,
+              breakfast: document.getElementById("breakfast").checked,
+              lunch: document.getElementById("lunch").checked,
+              dinner: document.getElementById("dinner").checked,
+              night: document.getElementById("night").checked
+            });
+          break;
+          } else {
+            document.getElementById("error").innerHTML = "Medication limit reached! (32)"
+          }
+        }
+      }
+    }
+    }
+    console.log("complete")
+  </script>
 
 </html>

@@ -133,10 +133,10 @@ body {
   font-size: 24px;
 }
 
-.addnomargin {
+
+.addcheck {
   width: 1em;
   height: 1.5em;
-  padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -144,14 +144,7 @@ body {
   vertical-align: middle;
 }
 
-.addcheck {
-  width: 1em;
-  height: 1.5em;
-  padding: 10px;
-  margin-bottom: 10px;
-  margin-left: 15px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  font-size: 24px;
-  vertical-align: middle;
+.right {
+  position: absolute;
+  right: 0px;
 }
