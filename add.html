@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Amram Dashboard</title>
+    <link rel="stylesheet" href="https://birdone.click/web-v2/assets/css/style.css?v=48f2de970bc071da05bfbe347315aa030d7b6090">
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-remote-config.js" type="module"></script>  
+    <script src="/script_add.js"></script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+      import * as fs from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyAN8iGMfpIZEnS5mxrW5uRfMqWXpeAuSSc",
+        authDomain: "amramdotclick.firebaseapp.com",
+        projectId: "amramdotclick",
+        storageBucket: "amramdotclick.appspot.com",
+        messagingSenderId: "667774176347",
+        appId: "1:667774176347:web:9cffa4f075c9dd8f19c37e",
+        measurementId: "G-8H5T23DG00"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = fs.getFirestore(app)
+      window.fs = fs;
+      window.db = db;
+    </script>
+  </head>
+
+  <body>
+    <div class="login-container">
+      <h1 style="font-weight:300">Add new medication</h1><br>
+      <h3 style="font-weight:400">Name</h3>
+      <input id="medname" class="addfield" placeholder="Paracetamol"><br>
+      <h3 style="font-weight:400">Amount</h3>
+      <input id="amt" class="addfield" style="width:70%; display:inline" placeholder="500">
+      <input id="unit" class="addfield" style="width:28%; display:inline; margin-left:1.5%" placeholder="milligrams"><br>
+      <h3 style="font-weight:400; margin-bottom:10px">Time</h3>
+      <h2 style="font-weight:400; font-size:24px; display:inline;">
+        <input type="checkbox" id="breakfast" class="addnomargin">&nbsp;Breakfast
+        <input type="checkbox" id="lunch" class="addcheck">&nbsp;Lunch
+        <input type="checkbox" id="dinner" class="addcheck">&nbsp;Dinner
+        <input type="checkbox" id="night" class="addcheck">&nbsp;Night
+    </div>
+  </body>
+
+</html>
