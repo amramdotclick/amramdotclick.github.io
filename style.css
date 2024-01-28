@@ -18,6 +18,16 @@ body {
   cursor: pointer;
 }
 
+.greybtn {
+  background-color: #adadad;
+  color: #fff;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
 .right-container {
   position: absolute;
   top: 50%;
@@ -102,4 +112,13 @@ body {
     word-wrap: break-word;
     overflow: auto;
   }
+}
+
+.loginfield {
+  width: 49%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 24px;
 }

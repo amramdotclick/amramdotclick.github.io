@@ -36,20 +36,23 @@
     <div class="login-container">
       <h1>Amram</h1>
       <hr>
-      <h2 style="font-weight:300;">Login to your Amram Account</h2><br>
+      <h2 style="font-weight:300;">Create a new Amram Account to manage your medication</h2><br>
       <input id="username" class="loginfield" height="2em" placeholder="Email">⠀
       <input id="password" class="loginfield" height="2em" placeholder="Password" type="password">
-      <h3><button class="loginbtn" onclick="userLogin();" style="display: inline;">Login</button><button class="greybtn" style="display: inline;" onclick="window.location.href='signup.html'">No account? Signup</button><button class="greybtn" style="display:inline;" onclick="window.location.href='index.html'">Go back</button></h3><br>
+      <h3><button class="loginbtn" onclick="userCreate();" style="display: inline;">Sign up</button><button class="greybtn" style="display: inline;" onclick="window.location.href='login.html'">Already have an account? Log in</button><button class="greybtn" style="display:inline;" onclick="window.location.href='index.html'">Go back</button></h3><br>
       <h3 style="font-weight:400; color:red" id="error"></h3><br>
     </div>
   </body>
 
   <script>
     
-    function userLogin() {
+    function userCreate() {
       const email = document.getElementById("username").value
       const password = document.getElementById("password").value
-      firebaseAuth.signInWithEmailAndPassword(uth, email, password)
+      if (password.length < 8) {
+        document.getElementById("error").innerHTML = "Password must be at least 8 characters"
+      } else {
+      firebaseAuth.createUserWithEmailAndPassword(uth, email, password)
         .then((userCredential) => {
           uth.onAuthStateChanged((user) => {
             if (user) {
@@ -66,16 +69,23 @@
           const errorCode = error.code;
           const errorMessage = error.message;
           console.error(`${errorCode}: ${errorMessage}`)
-          if ((errorCode == "auth/invalid-email") || (errorCode == "auth/user-not-found") || (errorCode == "auth/invalid-login-credentials")) {  
-            document.getElementById("error").innerHTML = "Incorrect email or password"
-          } else if (errorCode == ("auth/too-many-requests")) {
+          if ((errorCode == "auth/invalid-email")) {
+            document.getElementById("error").innerHTML = "Invalid email"
+          } else if (errorCode == "auth/email-already-in-use") {
+            document.getElementById("error").innerHTML = "Email already in use"
+          } else if (errorCode == "auth/weak-password" || errorMessage == "Password should be at least 8 characters") {
+            document.getElementById("error").innerHTML = "Password must be at least 8 characters"
+          } else if (errorCode == "auth/invalid-login-credentials") {
+            document.getElementById("error").innerHTML = "Invalid login credentials"
+          } else if (errorCode == "auth/too-many-requests") {
             document.getElementById("error").innerHTML = "Too many requests. Try again later"
           } else if (errorCode.startsWith("auth/")) {
             document.getElementById("error").innerHTML = "Authentication error"
           } else {
-            document.getElementById("error").innerHTML = "Unknown error"
+            document.getElementById("error").innerHTML = "An unknown error occurred"
           }
         });
       }
+    }
   </script>
 </html>

@@ -13,7 +13,7 @@
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-      import * as uth from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+      import * as firebaseAuth from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
     
       const firebaseConfig = {
         apiKey: "AIzaSyAN8iGMfpIZEnS5mxrW5uRfMqWXpeAuSSc",
@@ -25,30 +25,10 @@
         measurementId: "G-8H5T23DG00"
       };
 
-      app = initializeApp(firebaseConfig);
-
-      const auth = uth.getAuth(app)
-      
-      document.addEventListener("DOMContentLoaded", function() {
-
-      function userLogin() {
-        const email = document.getElementById("username").value
-        const password = document.getElementById("password").value
-        uth.signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            window.location.href = "index.html"
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error(`${errorCode}: ${errorMessage}`)
-          });
-      }
-
-    });
+      const app = initializeApp(firebaseConfig);
+      const uth = firebaseAuth.initializeAuth(app);
+      window.firebaseAuth = firebaseAuth;
+      window.uth = uth;
     </script>
   </head>
 
@@ -56,11 +36,24 @@
     <div class="login-container">
       <h1>Amram</h1>
       <hr>
-      <h2 style="font-weight:300;">Login to your Amram Account</h2><br>
-      <input id="username" class="loginfield" height="2em" placeholder="Username">⠀
-      <input id="password" class="loginfield" height="2em" placeholder="Password" type="password">
-      <h3><button class="loginbtn" onclick="userLogin();" style="display: inline;">Login</button><button class="greybtn" style="display: inline;">No account? Signup</button></h3>
+      <h2 style="font-weight:300;">Are you sure you want to log out?</h2><br>
+      <h3><button class="loginbtn" onclick="userLogout();" style="display: inline;">Yes, log out</button><button class="greybtn" style="display: inline;" onclick="window.location.href='index.html'">No, stay</button></h3>
     </div>
   </body>
 
+  <script>
+    function userLogout() {
+      firebaseAuth.signOut(uth)
+        .then(() => {
+          uth.onAuthStateChanged((user) => {
+            console.log("User is logged out.")
+            localStorage.removeItem("email")
+            window.location.href = "login.html"
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        })
+    }
+  </script>
 </html>
