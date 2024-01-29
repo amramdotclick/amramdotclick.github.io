@@ -43,9 +43,6 @@
       window.userData = userData;
       window.userEmail = userEmail;
 
-      const amed = localStorage.getItem("med");
-      const aid = localStorage.getItem("id");
-
       let doc = await fs.getDoc(fs.doc(db, userEmail, `med-${id}`));
       let aDATA = doc.data();
       console.log(id);
@@ -54,8 +51,6 @@
       var amedi = [DATA.name, DATA.quantity, DATA.unit, DATA.breakfast, DATA.lunch, DATA.dinner, DATA.night];
 
       window.onload = function() {
-        sessionStorage.setItem("med", amed);
-        sessionStorage.setItem("id", aid);
         sessionStorage.setItem("DATA", aDATA);
         sessionStorage.setItem("medi", amedi);
       }
@@ -86,8 +81,8 @@
   </body>
 
   <script>
-    var med = sessionStorage.getItem("med");
-    var id = sessionStorage.getItem("id");
+    var med = localStorage.getItem("med");
+    var id = localStorage.getItem("id");
     var DATA = sessionStorage.getItem("DATA");
     var medi = sessionStorage.getItem("medi");
 
@@ -104,7 +99,6 @@
     console.log(med)
     async function editMed() {
       document.getElementById("title").innerText = `Editing medication: ${med}`;
-      if (DATA == null) {
         fs.updateDoc(fs.doc(db, userEmail, `med-${id}`), {
           name: document.getElementById("medname").value,
           quantity: document.getElementById("amt").value,
@@ -115,7 +109,6 @@
           night: document.getElementById("night").checked
         });
       }
-    }
   
     editValues();
     editMed();
