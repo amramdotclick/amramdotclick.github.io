@@ -87,9 +87,9 @@
     var medi = sessionStorage.getItem("medi");
 
     async function editValues() {
-      document.getElementById("medname").value = medi[0];
-      document.getElementById("amt").value = medi[1];
-      document.getElementById("unit").value = medi[2];
+      document.getElementById("medname").defaultValue = medi[0];
+      document.getElementById("amt").defaultValue = medi[1];
+      document.getElementById("unit").defaultValue = medi[2];
       document.getElementById("breakfast").checked = medi[3];
       document.getElementById("lunch").checked = medi[4];
       document.getElementById("dinner").checked = medi[5];
