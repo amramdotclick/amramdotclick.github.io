@@ -51,8 +51,8 @@
       var amedi = [DATA.name, DATA.quantity, DATA.unit, DATA.breakfast, DATA.lunch, DATA.dinner, DATA.night];
 
       window.onload = function() {
-        sessionStorage.setItem("DATA", aDATA);
-        sessionStorage.setItem("medi", amedi);
+        localStorage.setItem("DATA", aDATA);
+        localStorage.setItem("medi", amedi);
       }
     </script>
 
@@ -83,8 +83,8 @@
   <script>
     var med = localStorage.getItem("med");
     var id = localStorage.getItem("id");
-    var DATA = sessionStorage.getItem("DATA");
-    var medi = sessionStorage.getItem("medi");
+    var DATA = localStorage.getItem("DATA");
+    var medi = localStorage.getItem("medi");
 
     function editValues() {
       document.getElementById("medname").defaultValue = medi[0];
