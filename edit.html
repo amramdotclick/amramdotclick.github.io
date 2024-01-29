@@ -43,21 +43,21 @@
       window.userData = userData;
       window.userEmail = userEmail;
 
-      const med = localStorage.getItem("med");
-      const id = localStorage.getItem("id");
+      const amed = localStorage.getItem("med");
+      const aid = localStorage.getItem("id");
 
       let doc = await fs.getDoc(fs.doc(db, userEmail, `med-${id}`));
-      let DATA = doc.data();
+      let aDATA = doc.data();
       console.log(id);
       console.log(DATA);
 
-      var medi = [DATA.name, DATA.quantity, DATA.unit, DATA.breakfast, DATA.lunch, DATA.dinner, DATA.night];
+      var amedi = [DATA.name, DATA.quantity, DATA.unit, DATA.breakfast, DATA.lunch, DATA.dinner, DATA.night];
 
       window.onload = function() {
-        sessionStorage.setItem("med", med);
-        sessionStorage.setItem("id", id);
-        sessionStorage.setItem("DATA", DATA);
-        sessionStorage.setItem("medi", medi);
+        sessionStorage.setItem("med", amed);
+        sessionStorage.setItem("id", aid);
+        sessionStorage.setItem("DATA", aDATA);
+        sessionStorage.setItem("medi", amedi);
       }
     </script>
 
@@ -86,6 +86,11 @@
   </body>
 
   <script>
+    var med = sessionStorage.getItem("med");
+    var id = sessionStorage.getItem("id");
+    var DATA = sessionStorage.getItem("DATA");
+    var medi = sessionStorage.getItem("medi");
+
     async function editValues() {
       document.getElementById("medname").value = medi[0];
       document.getElementById("amt").value = medi[1];
