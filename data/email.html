@@ -1,4 +1,8 @@
 <script>
   var email = localStorage.getItem("email");
-  document.write(email);
+  if (email) {
+    document.write(email);
+  } else {
+    document.write("Not logged in!")
+  }
 </script>

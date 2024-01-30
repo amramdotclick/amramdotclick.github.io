@@ -60,6 +60,7 @@
         dinner: document.getElementById("dinner").checked,
         night: document.getElementById("night").checked
       });
+      window.location.href = "index.html"
     } else {
       for (let i = 1; i <= 32; i++) {
         let doc = await fs.getDoc(fs.doc(db, userEmail, `med-${i}`));
@@ -76,8 +77,8 @@
             dinner: document.getElementById("dinner").checked,
             night: document.getElementById("night").checked
           });
-        break;
-        window.location.href = "index.html";
+          window.location.href = "index.html";
+          break;
         } else {
           if (i == 32) {
             document.getElementById("error").innerHTML = "Medication limit reached! (32)";
