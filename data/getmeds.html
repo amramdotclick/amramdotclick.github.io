@@ -11,12 +11,13 @@
   // Loop every 7 items
   for (var i = 0; i < split.length; i++) {
     temp += split[i];
+    //temp += ` (${i})`
     if (i % 7 === 0 && i !== 0) {
       temp += ';'
+      //temp += ` (PUSH at ${i})`
       result.push(temp);
       temp = "";
     } else if ((i !== split.length - 1) && i % 7 !== 0) {
-      temp += ` (${i}) `
       temp += ',';
     }
   }
@@ -26,6 +27,6 @@
     result.push(temp);
   }
 
-  MEDDATA = result.join(",");
+  MEDDATA = result.join("");
   document.write(MEDDATA)
 </script>
