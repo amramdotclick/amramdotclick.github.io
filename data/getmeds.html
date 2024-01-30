@@ -1,3 +1,21 @@
 <script>
   var med = localStorage.getItem("med");
+  var medString = "";
+  for (var i = 1; i <= 32; i++) {
+    for (var j = 0; j <= 6; j++) {
+      if (med[i] && med[i][j] !== undefined) {
+        medString += med[i][j];
+      } else {
+        medString += "null";
+      }
+      if (j < 6) {
+        medString += ",";
+      }
+    }
+    if (i < 32) {
+      medString += ";";
+    }
+  }
+  document.write(medString);
+</script>
   
