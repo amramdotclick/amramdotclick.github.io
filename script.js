@@ -49,7 +49,7 @@ for (let i = 1; i <= 32; i++) {
   DATA = DAT.data();
   if (DAT.exists()) {
     med[i] = [DATA.name, DATA.quantity, DATA.unit, DATA.breakfast, DATA.lunch, DATA.dinner, DATA.night];
-    //console.log(med);
+    localStorage.setItem("med", med)
   } else {
     med[i] = null;
   }

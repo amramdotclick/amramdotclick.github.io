@@ -1,21 +1,31 @@
+<head><title>Amramconnect</title></head>
+
 <script>
+  var split = [];
   var med = localStorage.getItem("med");
-  var medString = "";
-  for (var i = 1; i <= 32; i++) {
-    for (var j = 0; j <= 6; j++) {
-      if (med[i][j] !== null || med[i][j] !== undefined) {
-        medString += med[i][j];
-      } else {
-        medString += "null";
-      }
-      if (j < 6) {
-        medString += ",";
-      }
-    }
-    if (i < 32) {
-      medString += ";";
+  split = med.split(",");
+
+  var result = [];
+  var temp = ""
+
+  // Loop every 7 items
+  for (var i = 0; i < split.length; i++) {
+    temp += split[i];
+    if (i % 7 === 0 && i !== 0) {
+      temp += ';'
+      result.push(temp);
+      temp = "";
+    } else if ((i !== split.length - 1) && i % 7 !== 0) {
+      temp += ` (${i}) `
+      temp += ',';
     }
   }
-  document.write(medString);
+
+  // Push the last group to result
+  if (temp !== "") {
+    result.push(temp);
+  }
+
+  MEDDATA = result.join(",");
+  document.write(MEDDATA)
 </script>
-  
