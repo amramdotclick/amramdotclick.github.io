@@ -22,9 +22,9 @@ const auth = getAuth();
 const userEmail = localStorage.getItem("email");
 
 if (userEmail != null) {
-  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>"+userEmail+"</h3> <button class='generalbtn' style='display:inline;' onclick='window.location.href=\"/logout.html\"'>Logout</button>";
+  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>"+userEmail+"</h3><br><br><button class='generalbtn' style='width:100%;' onclick='window.location.href=\"/logout.html\"'>Logout</button>";
 } else {
-  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>Not logged in </h3> <button class='generalbtn' style='display:inline;' onclick='window.location.href=\"/login.html\"'>Login</button></span>";
+  document.getElementById("name").innerHTML = "<h3 style='display:inline;'>Not logged in </h3><br><br><button class='generalbtn' style='width:100%;' onclick='window.location.href=\"/login.html\"'>Login</button></span>";
 }
 
 // Data
