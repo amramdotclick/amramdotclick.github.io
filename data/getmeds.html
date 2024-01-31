@@ -9,8 +9,13 @@
   var temp = ""
 
   // Loop every 7 items
-  for (var i = 0; i < split.length; i++) {
-    temp += split[i];
+  for (var i = 0; i < 32*7; i++) {
+    console.log(`${i}, ${split[i]}`)
+    if (split[i] == undefined) {
+      temp += 'null'
+    } else {
+      temp += split[i];
+    }
     //temp += ` (${i})`
     if (i % 7 === 0 && i !== 0) {
       temp += ';'
